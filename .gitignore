@@ -1,0 +1,58 @@
+# Variables de entorno
+.env
+backend/.env
+frontend/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+
+# Angular y Node.js
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Base de datos Oracle
+oracle-data/
+*.dmp
+*.log
+
+# Respaldos
+database/backups/*
+!database/backups/.gitkeep
+
+# Archivos subidos
+uploads/*
+!uploads/laboratorio/
+uploads/laboratorio/*
+!uploads/laboratorio/.gitkeep
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# IntelliJ
+.idea/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
