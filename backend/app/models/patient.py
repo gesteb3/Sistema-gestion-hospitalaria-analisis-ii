@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 if TYPE_CHECKING:
+    from app.models.appointment import Appointment
     from app.models.legal_guardian import LegalGuardian
 
 
@@ -80,6 +81,10 @@ class Patient(Base):
         cascade="all, delete-orphan",
         lazy="selectin",
         order_by="LegalGuardian.responsable_id",
+    )
+    citas: Mapped[list["Appointment"]] = relationship(
+        back_populates="paciente",
+        lazy="selectin",
     )
 
     @property

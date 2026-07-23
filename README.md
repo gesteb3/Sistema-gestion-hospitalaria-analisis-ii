@@ -20,8 +20,8 @@ de un hospital.
 - Autenticación JWT.
 - Pacientes y responsables legales.
 - Especialidades.
-- Médicos.
-- Horarios médicos.
+- Médicos y horarios.
+- Citas médicas y disponibilidad.
 
 ## Iniciar el sistema
 

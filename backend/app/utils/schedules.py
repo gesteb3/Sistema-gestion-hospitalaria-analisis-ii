@@ -27,6 +27,22 @@ def validate_time_format(value: str) -> str:
     return normalized
 
 
+def time_to_minutes(value: str) -> int:
+    validated = validate_time_format(value)
+    hours, minutes = validated.split(":")
+    return int(hours) * 60 + int(minutes)
+
+
+def minutes_to_time(value: int) -> str:
+    if value < 0 or value >= 24 * 60:
+        raise ValueError(
+            "La hora calculada está fuera del rango permitido."
+        )
+
+    hours, minutes = divmod(value, 60)
+    return f"{hours:02d}:{minutes:02d}"
+
+
 def schedules_overlap(
     first_start: str,
     first_end: str,

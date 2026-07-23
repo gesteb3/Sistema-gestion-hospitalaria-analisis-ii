@@ -134,3 +134,37 @@ DoctorWriterDependency = Annotated[
         require_roles("ADMINISTRADOR")
     ),
 ]
+
+AppointmentReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "RECEPCIONISTA",
+            "MEDICO",
+            "ENFERMERO",
+            "AUDITOR",
+        )
+    ),
+]
+
+AppointmentWriterDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "RECEPCIONISTA",
+        )
+    ),
+]
+
+AppointmentStatusDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "RECEPCIONISTA",
+            "MEDICO",
+        )
+    ),
+]

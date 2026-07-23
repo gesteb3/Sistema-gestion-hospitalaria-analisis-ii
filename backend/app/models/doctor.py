@@ -8,6 +8,7 @@ from app.db.base import Base
 from app.models.doctor_specialty import medico_especialidades
 
 if TYPE_CHECKING:
+    from app.models.appointment import Appointment
     from app.models.doctor_schedule import DoctorSchedule
     from app.models.specialty import Specialty
 
@@ -73,6 +74,10 @@ class Doctor(Base):
     horarios: Mapped[list["DoctorSchedule"]] = relationship(
         back_populates="medico",
         cascade="all, delete-orphan",
+        lazy="selectin",
+    )
+    citas: Mapped[list["Appointment"]] = relationship(
+        back_populates="medico",
         lazy="selectin",
     )
 

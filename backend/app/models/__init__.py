@@ -1,3 +1,4 @@
+from app.models.appointment import Appointment
 from app.models.association import usuario_roles
 from app.models.doctor import Doctor
 from app.models.doctor_schedule import DoctorSchedule
@@ -9,6 +10,7 @@ from app.models.specialty import Specialty
 from app.models.user import User
 
 __all__ = [
+    "Appointment",
     "Doctor",
     "DoctorSchedule",
     "LegalGuardian",
