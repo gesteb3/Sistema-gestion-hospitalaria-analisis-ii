@@ -3,16 +3,6 @@
 Aplicación web académica para administrar procesos clínicos y administrativos
 de un hospital.
 
-## Tecnologías
-
-- Angular con TypeScript
-- Python con FastAPI
-- SQLAlchemy
-- python-oracledb
-- Oracle Database Free
-- Docker Compose
-- JWT y OAuth2 Password
-
 ## Módulos implementados
 
 - Usuarios, roles y autenticación JWT.
@@ -21,23 +11,23 @@ de un hospital.
 - Citas médicas.
 - Historial clínico y consultas.
 - Signos vitales, diagnósticos y tratamientos.
-- Medicamentos e inventario.
-- Recetas y dispensación.
+- Medicamentos, recetas e inventario.
+- Tipos de examen, órdenes y resultados de laboratorio.
 
-## Iniciar el sistema
+## Iniciar
 
 ```powershell
 Copy-Item .env.example .env -Force
 docker compose up -d --build
 ```
 
-## Direcciones
+## Swagger
 
-- API: http://localhost:8000
-- Swagger: http://localhost:8000/docs
-- Oracle: http://localhost:8000/api/v1/health/database
+```text
+http://localhost:8000/docs
+```
 
-## Usuario inicial
+## Usuario
 
 - Usuario: `admin`
 - Contraseña: `Admin12345`

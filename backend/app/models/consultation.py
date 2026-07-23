@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from app.models.clinical_history import ClinicalHistory
     from app.models.diagnosis import Diagnosis
     from app.models.doctor import Doctor
+    from app.models.lab_order import LabOrder
     from app.models.prescription import Prescription
     from app.models.treatment import Treatment
     from app.models.vital_signs import VitalSigns
@@ -113,5 +114,10 @@ class Consultation(Base):
         back_populates="consulta",
         cascade="all, delete-orphan",
         uselist=False,
+        lazy="selectin",
+    )
+    ordenes_laboratorio: Mapped[list["LabOrder"]] = relationship(
+        back_populates="consulta",
+        cascade="all, delete-orphan",
         lazy="selectin",
     )

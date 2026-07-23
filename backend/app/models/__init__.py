@@ -7,6 +7,10 @@ from app.models.doctor import Doctor
 from app.models.doctor_schedule import DoctorSchedule
 from app.models.doctor_specialty import medico_especialidades
 from app.models.inventory_movement import InventoryMovement
+from app.models.lab_order import LabOrder
+from app.models.lab_order_item import LabOrderItem
+from app.models.lab_result import LabResult
+from app.models.lab_test_type import LabTestType
 from app.models.legal_guardian import LegalGuardian
 from app.models.medication import Medication
 from app.models.patient import Patient
@@ -26,6 +30,10 @@ __all__ = [
     "Doctor",
     "DoctorSchedule",
     "InventoryMovement",
+    "LabOrder",
+    "LabOrderItem",
+    "LabResult",
+    "LabTestType",
     "LegalGuardian",
     "Medication",
     "Patient",

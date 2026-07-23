@@ -8,7 +8,13 @@ from app.core.config import get_settings
 from app.core.security import hash_password
 from app.db.base import Base
 from app.db.session import engine
-from app.models import Medication, Role, Specialty, User
+from app.models import (
+    LabTestType,
+    Medication,
+    Role,
+    Specialty,
+    User,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -81,6 +87,39 @@ DEFAULT_MEDICATIONS = [
     },
 ]
 
+DEFAULT_LAB_TESTS = [
+    {
+        "codigo": "LAB-001",
+        "nombre": "Hemograma completo",
+        "descripcion": (
+            "Evaluación general de células sanguíneas."
+        ),
+        "muestra_requerida": "Sangre",
+        "tiempo_estimado_horas": 6,
+        "precio": Decimal("75.00"),
+    },
+    {
+        "codigo": "LAB-002",
+        "nombre": "Glucosa en sangre",
+        "descripcion": (
+            "Medición de glucosa sanguínea."
+        ),
+        "muestra_requerida": "Sangre",
+        "tiempo_estimado_horas": 4,
+        "precio": Decimal("35.00"),
+    },
+    {
+        "codigo": "LAB-003",
+        "nombre": "Examen general de orina",
+        "descripcion": (
+            "Análisis físico, químico y microscópico."
+        ),
+        "muestra_requerida": "Orina",
+        "tiempo_estimado_horas": 6,
+        "precio": Decimal("45.00"),
+    },
+]
+
 
 def create_tables() -> None:
     Base.metadata.create_all(bind=engine)
@@ -131,6 +170,23 @@ def seed_medications(database: Session) -> None:
         if values["codigo"] not in existing_codes:
             database.add(
                 Medication(
+                    **values,
+                    estado=1,
+                )
+            )
+
+    database.commit()
+
+
+def seed_lab_tests(database: Session) -> None:
+    existing_codes = set(
+        database.scalars(select(LabTestType.codigo)).all()
+    )
+
+    for values in DEFAULT_LAB_TESTS:
+        if values["codigo"] not in existing_codes:
+            database.add(
+                LabTestType(
                     **values,
                     estado=1,
                 )
@@ -201,4 +257,5 @@ def initialize_database() -> None:
         seed_roles(database)
         seed_specialties(database)
         seed_medications(database)
+        seed_lab_tests(database)
         seed_admin(database)

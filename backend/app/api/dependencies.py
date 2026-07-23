@@ -234,3 +234,35 @@ PrescriptionWriterDependency = Annotated[
         )
     ),
 ]
+
+LaboratoryReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "MEDICO",
+            "LABORATORIO",
+            "AUDITOR",
+        )
+    ),
+]
+
+LaboratoryOrderWriterDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "MEDICO",
+        )
+    ),
+]
+
+LaboratoryProcessorDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "LABORATORIO",
+        )
+    ),
+]

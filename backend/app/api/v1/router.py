@@ -6,6 +6,7 @@ from app.api.v1.endpoints import (
     clinical,
     doctors,
     health,
+    laboratory,
     patients,
     pharmacy,
     specialties,
@@ -25,3 +26,5 @@ api_router.include_router(clinical.history_router)
 api_router.include_router(clinical.consultation_router)
 api_router.include_router(pharmacy.medication_router)
 api_router.include_router(pharmacy.prescription_router)
+api_router.include_router(laboratory.test_type_router)
+api_router.include_router(laboratory.lab_order_router)
