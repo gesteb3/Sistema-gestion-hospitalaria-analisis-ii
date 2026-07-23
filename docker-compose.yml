@@ -1,0 +1,52 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim-faststart
+    container_name: hms_oracle
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:-Oracle12345}
+      APP_USER: ${ORACLE_APP_USER:-hms_app}
+      APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD:-HmsApp12345}
+      TZ: America/Guatemala
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hms_backend
+    environment:
+      APP_NAME: ${APP_NAME:-Sistema de Gestión Hospitalaria}
+      APP_VERSION: ${APP_VERSION:-0.1.0}
+      APP_ENV: ${APP_ENV:-development}
+      DEBUG: ${DEBUG:-true}
+      API_V1_PREFIX: ${API_V1_PREFIX:-/api/v1}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:4200}
+      ORACLE_USER: ${ORACLE_APP_USER:-hms_app}
+      ORACLE_PASSWORD: ${ORACLE_APP_PASSWORD:-HmsApp12345}
+      ORACLE_HOST: oracle
+      ORACLE_PORT: 1521
+      ORACLE_SERVICE: ${ORACLE_SERVICE:-FREEPDB1}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/tests:/app/tests
+      - ./uploads:/app/uploads
+    depends_on:
+      oracle:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  oracle_data:
+    name: hms_oracle_data
