@@ -266,3 +266,24 @@ LaboratoryProcessorDependency = Annotated[
         )
     ),
 ]
+
+BillingReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "CONTABILIDAD",
+            "AUDITOR",
+        )
+    ),
+]
+
+BillingWriterDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "CONTABILIDAD",
+        )
+    ),
+]

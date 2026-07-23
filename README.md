@@ -12,7 +12,8 @@ de un hospital.
 - Historial clínico y consultas.
 - Signos vitales, diagnósticos y tratamientos.
 - Medicamentos, recetas e inventario.
-- Tipos de examen, órdenes y resultados de laboratorio.
+- Órdenes y resultados de laboratorio.
+- Facturación, pagos y resumen financiero.
 
 ## Iniciar
 
