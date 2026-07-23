@@ -6,7 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
 from app.core.config import get_settings
+from app.db.init_db import initialize_database
 from app.db.session import engine
+
 
 settings = get_settings()
 
@@ -25,7 +27,12 @@ async def lifespan(_: FastAPI):
         settings.app_version,
         settings.app_env,
     )
+
+    initialize_database()
+    logger.info("Tablas y datos iniciales verificados correctamente.")
+
     yield
+
     engine.dispose()
     logger.info("Conexiones de base de datos cerradas correctamente.")
 
@@ -51,7 +58,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(api_router, prefix=settings.api_v1_prefix)
+app.include_router(
+    api_router,
+    prefix=settings.api_v1_prefix,
+)
 
 
 @app.get("/", tags=["Sistema"])
