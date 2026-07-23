@@ -1,8 +1,7 @@
 # Sistema de Gestión Hospitalaria
 
-Sistema web académico para administrar pacientes, médicos, citas, historiales,
-consultas, diagnósticos, recetas, laboratorio, farmacia, pagos, usuarios,
-roles y auditoría.
+Aplicación web académica para administrar procesos clínicos y administrativos
+de un hospital.
 
 ## Tecnologías
 
@@ -12,64 +11,36 @@ roles y auditoría.
 - python-oracledb
 - Oracle Database Free
 - Docker Compose
+- JWT y OAuth2 Password
 
-## Estructura inicial
+## Módulos implementados
 
-```text
-backend/
-  app/
-    api/v1/endpoints/
-    core/
-    db/
-    models/
-    repositories/
-    schemas/
-    services/
-    utils/
-  tests/
-database/
-docs/
-uploads/laboratorio/
-docker-compose.yml
-```
+- Estado general de la API y conexión con Oracle.
+- Usuarios y roles.
+- Autenticación JWT.
+- Pacientes.
+- Responsables legales.
 
-## Iniciar con Docker desde CMD
-
-1. Crear el archivo local de variables:
+## Iniciar el sistema
 
 ```cmd
-copy .env.example .env
+copy /Y .env.example .env
+docker compose up -d --build
 ```
 
-2. Construir y levantar los contenedores:
-
-```cmd
-docker compose up --build
-```
-
-La primera descarga de Oracle puede tardar porque la imagen es grande.
-
-3. Abrir:
+## Direcciones
 
 - API: http://localhost:8000
 - Swagger: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
-- Estado general: http://localhost:8000/api/v1/health
-- Estado de Oracle: http://localhost:8000/api/v1/health/database
+- Estado: http://localhost:8000/api/v1/health
+- Oracle: http://localhost:8000/api/v1/health/database
 
-4. Detener:
+## Usuario inicial
 
-```cmd
-docker compose down
-```
+- Usuario: `admin`
+- Contraseña: `Admin12345`
 
-5. Detener y borrar también los datos locales de Oracle:
-
-```cmd
-docker compose down -v
-```
-
-## Ejecutar pruebas
+## Pruebas
 
 ```cmd
 docker compose exec backend pytest

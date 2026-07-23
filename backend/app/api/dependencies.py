@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
@@ -53,22 +54,62 @@ def get_current_user(
 CurrentUserDependency = Annotated[User, Depends(get_current_user)]
 
 
+def require_roles(*allowed_roles: str) -> Callable:
+    normalized_roles = {
+        role.strip().upper()
+        for role in allowed_roles
+    }
+
+    def dependency(
+        current_user: CurrentUserDependency,
+    ) -> User:
+        current_roles = {
+            role.nombre
+            for role in current_user.roles
+            if role.activo == 1
+        }
+
+        if not current_roles.intersection(normalized_roles):
+            required = ", ".join(sorted(normalized_roles))
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Se requiere uno de estos roles: {required}.",
+            )
+
+        return current_user
+
+    return dependency
+
+
 def require_admin(
     current_user: CurrentUserDependency,
 ) -> User:
-    role_names = {
-        role.nombre
-        for role in current_user.roles
-        if role.activo == 1
-    }
-
-    if "ADMINISTRADOR" not in role_names:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Se requiere el rol ADMINISTRADOR.",
-        )
-
-    return current_user
+    return require_roles("ADMINISTRADOR")(current_user)
 
 
 AdminUserDependency = Annotated[User, Depends(require_admin)]
+
+PatientReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "RECEPCIONISTA",
+            "MEDICO",
+            "ENFERMERO",
+            "LABORATORIO",
+            "CONTABILIDAD",
+            "AUDITOR",
+        )
+    ),
+]
+
+PatientWriterDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "RECEPCIONISTA",
+        )
+    ),
+]
