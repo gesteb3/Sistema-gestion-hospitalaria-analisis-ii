@@ -8,6 +8,7 @@ from app.db.base import Base
 
 if TYPE_CHECKING:
     from app.models.appointment import Appointment
+    from app.models.clinical_history import ClinicalHistory
     from app.models.legal_guardian import LegalGuardian
 
 
@@ -84,6 +85,12 @@ class Patient(Base):
     )
     citas: Mapped[list["Appointment"]] = relationship(
         back_populates="paciente",
+        lazy="selectin",
+    )
+    historial_clinico: Mapped["ClinicalHistory | None"] = relationship(
+        back_populates="paciente",
+        cascade="all, delete-orphan",
+        uselist=False,
         lazy="selectin",
     )
 

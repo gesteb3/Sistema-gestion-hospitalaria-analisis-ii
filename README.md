@@ -22,6 +22,10 @@ de un hospital.
 - Especialidades.
 - Médicos y horarios.
 - Citas médicas y disponibilidad.
+- Historial clínico.
+- Consultas médicas.
+- Signos vitales.
+- Diagnósticos y tratamientos.
 
 ## Iniciar el sistema
 

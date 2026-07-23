@@ -15,6 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 if TYPE_CHECKING:
+    from app.models.consultation import Consultation
     from app.models.doctor import Doctor
     from app.models.patient import Patient
 
@@ -87,4 +88,9 @@ class Appointment(Base):
     medico: Mapped["Doctor"] = relationship(
         back_populates="citas",
         lazy="joined",
+    )
+    consulta: Mapped["Consultation | None"] = relationship(
+        back_populates="cita",
+        uselist=False,
+        lazy="selectin",
     )
