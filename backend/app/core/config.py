@@ -6,7 +6,7 @@ from sqlalchemy import URL
 
 class Settings(BaseSettings):
     app_name: str = "Sistema de Gestión Hospitalaria"
-    app_version: str = "0.3.0"
+    app_version: str = "0.4.0"
     app_env: str = "development"
     debug: bool = True
     api_v1_prefix: str = "/api/v1"

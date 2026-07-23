@@ -18,13 +18,17 @@ de un hospital.
 - Estado general de la API y conexión con Oracle.
 - Usuarios y roles.
 - Autenticación JWT.
-- Pacientes.
-- Responsables legales.
+- Pacientes y responsables legales.
+- Especialidades.
+- Médicos.
+- Horarios médicos.
 
 ## Iniciar el sistema
 
-```cmd
-copy /Y .env.example .env
+En PowerShell:
+
+```powershell
+Copy-Item .env.example .env -Force
 docker compose up -d --build
 ```
 
@@ -42,7 +46,7 @@ docker compose up -d --build
 
 ## Pruebas
 
-```cmd
+```powershell
 docker compose exec backend pytest
 ```
 

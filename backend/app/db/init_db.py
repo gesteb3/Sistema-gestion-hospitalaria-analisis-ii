@@ -7,7 +7,7 @@ from app.core.config import get_settings
 from app.core.security import hash_password
 from app.db.base import Base
 from app.db.session import engine
-from app.models import Role, User
+from app.models import Role, Specialty, User
 
 
 logger = logging.getLogger(__name__)
@@ -24,6 +24,24 @@ DEFAULT_ROLES = {
     "CONTABILIDAD": "Registra pagos y consulta reportes financieros.",
     "PACIENTE": "Consulta citas y resultados autorizados.",
     "AUDITOR": "Consulta la bitácora de operaciones.",
+}
+
+DEFAULT_SPECIALTIES = {
+    "Medicina General": (
+        "Atención primaria y evaluación general del paciente."
+    ),
+    "Pediatría": (
+        "Atención médica de niños y adolescentes."
+    ),
+    "Medicina Interna": (
+        "Diagnóstico y tratamiento de enfermedades en adultos."
+    ),
+    "Ginecología": (
+        "Atención de la salud del sistema reproductivo femenino."
+    ),
+    "Cardiología": (
+        "Diagnóstico y tratamiento del sistema cardiovascular."
+    ),
 }
 
 
@@ -43,6 +61,24 @@ def seed_roles(database: Session) -> None:
                     nombre=name,
                     descripcion=description,
                     activo=1,
+                )
+            )
+
+    database.commit()
+
+
+def seed_specialties(database: Session) -> None:
+    existing_names = set(
+        database.scalars(select(Specialty.nombre)).all()
+    )
+
+    for name, description in DEFAULT_SPECIALTIES.items():
+        if name not in existing_names:
+            database.add(
+                Specialty(
+                    nombre=name,
+                    descripcion=description,
+                    estado=1,
                 )
             )
 
@@ -109,4 +145,5 @@ def initialize_database() -> None:
 
     with Session(engine) as database:
         seed_roles(database)
+        seed_specialties(database)
         seed_admin(database)
