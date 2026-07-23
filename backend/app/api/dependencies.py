@@ -287,3 +287,24 @@ BillingWriterDependency = Annotated[
         )
     ),
 ]
+
+AuditReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "AUDITOR",
+        )
+    ),
+]
+
+ReportReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "AUDITOR",
+            "CONTABILIDAD",
+        )
+    ),
+]

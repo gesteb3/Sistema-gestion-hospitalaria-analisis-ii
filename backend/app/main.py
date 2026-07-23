@@ -8,6 +8,7 @@ from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.db.init_db import initialize_database
 from app.db.session import engine
+from app.middleware.audit import AuditMiddleware
 
 
 settings = get_settings()
@@ -49,6 +50,8 @@ app = FastAPI(
     openapi_url="/openapi.json",
     lifespan=lifespan,
 )
+
+app.add_middleware(AuditMiddleware)
 
 app.add_middleware(
     CORSMiddleware,

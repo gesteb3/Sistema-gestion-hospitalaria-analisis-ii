@@ -1,5 +1,6 @@
 from app.models.appointment import Appointment
 from app.models.association import usuario_roles
+from app.models.audit_log import AuditLog
 from app.models.clinical_history import ClinicalHistory
 from app.models.consultation import Consultation
 from app.models.diagnosis import Diagnosis
@@ -27,6 +28,7 @@ from app.models.vital_signs import VitalSigns
 
 __all__ = [
     "Appointment",
+    "AuditLog",
     "ClinicalHistory",
     "Consultation",
     "Diagnosis",
