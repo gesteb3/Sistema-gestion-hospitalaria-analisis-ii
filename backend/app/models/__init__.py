@@ -6,8 +6,12 @@ from app.models.diagnosis import Diagnosis
 from app.models.doctor import Doctor
 from app.models.doctor_schedule import DoctorSchedule
 from app.models.doctor_specialty import medico_especialidades
+from app.models.inventory_movement import InventoryMovement
 from app.models.legal_guardian import LegalGuardian
+from app.models.medication import Medication
 from app.models.patient import Patient
+from app.models.prescription import Prescription
+from app.models.prescription_item import PrescriptionItem
 from app.models.role import Role
 from app.models.specialty import Specialty
 from app.models.treatment import Treatment
@@ -21,8 +25,12 @@ __all__ = [
     "Diagnosis",
     "Doctor",
     "DoctorSchedule",
+    "InventoryMovement",
     "LegalGuardian",
+    "Medication",
     "Patient",
+    "Prescription",
+    "PrescriptionItem",
     "Role",
     "Specialty",
     "Treatment",

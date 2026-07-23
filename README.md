@@ -15,21 +15,16 @@ de un hospital.
 
 ## Módulos implementados
 
-- Estado general de la API y conexión con Oracle.
-- Usuarios y roles.
-- Autenticación JWT.
+- Usuarios, roles y autenticación JWT.
 - Pacientes y responsables legales.
-- Especialidades.
-- Médicos y horarios.
-- Citas médicas y disponibilidad.
-- Historial clínico.
-- Consultas médicas.
-- Signos vitales.
-- Diagnósticos y tratamientos.
+- Especialidades, médicos y horarios.
+- Citas médicas.
+- Historial clínico y consultas.
+- Signos vitales, diagnósticos y tratamientos.
+- Medicamentos e inventario.
+- Recetas y dispensación.
 
 ## Iniciar el sistema
-
-En PowerShell:
 
 ```powershell
 Copy-Item .env.example .env -Force
@@ -40,7 +35,6 @@ docker compose up -d --build
 
 - API: http://localhost:8000
 - Swagger: http://localhost:8000/docs
-- Estado: http://localhost:8000/api/v1/health
 - Oracle: http://localhost:8000/api/v1/health/database
 
 ## Usuario inicial

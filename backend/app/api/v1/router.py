@@ -7,6 +7,7 @@ from app.api.v1.endpoints import (
     doctors,
     health,
     patients,
+    pharmacy,
     specialties,
     users,
 )
@@ -22,3 +23,5 @@ api_router.include_router(doctors.router)
 api_router.include_router(appointments.router)
 api_router.include_router(clinical.history_router)
 api_router.include_router(clinical.consultation_router)
+api_router.include_router(pharmacy.medication_router)
+api_router.include_router(pharmacy.prescription_router)

@@ -202,3 +202,35 @@ VitalSignsWriterDependency = Annotated[
         )
     ),
 ]
+
+PharmacyReaderDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "MEDICO",
+            "FARMACIA",
+            "AUDITOR",
+        )
+    ),
+]
+
+PharmacyWriterDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "FARMACIA",
+        )
+    ),
+]
+
+PrescriptionWriterDependency = Annotated[
+    User,
+    Depends(
+        require_roles(
+            "ADMINISTRADOR",
+            "MEDICO",
+        )
+    ),
+]

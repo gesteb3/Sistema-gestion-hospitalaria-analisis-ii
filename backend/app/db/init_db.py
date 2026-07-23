@@ -1,4 +1,5 @@
 import logging
+from decimal import Decimal
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -7,7 +8,7 @@ from app.core.config import get_settings
 from app.core.security import hash_password
 from app.db.base import Base
 from app.db.session import engine
-from app.models import Role, Specialty, User
+from app.models import Medication, Role, Specialty, User
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,42 @@ DEFAULT_SPECIALTIES = {
     ),
 }
 
+DEFAULT_MEDICATIONS = [
+    {
+        "codigo": "MED-001",
+        "nombre": "Paracetamol",
+        "principio_activo": "Acetaminofén",
+        "concentracion": "500 mg",
+        "presentacion": "Tabletas",
+        "unidad": "TABLETA",
+        "stock_actual": 100,
+        "stock_minimo": 20,
+        "precio_unitario": Decimal("0.50"),
+    },
+    {
+        "codigo": "MED-002",
+        "nombre": "Ibuprofeno",
+        "principio_activo": "Ibuprofeno",
+        "concentracion": "400 mg",
+        "presentacion": "Tabletas",
+        "unidad": "TABLETA",
+        "stock_actual": 80,
+        "stock_minimo": 15,
+        "precio_unitario": Decimal("0.75"),
+    },
+    {
+        "codigo": "MED-003",
+        "nombre": "Amoxicilina",
+        "principio_activo": "Amoxicilina",
+        "concentracion": "500 mg",
+        "presentacion": "Cápsulas",
+        "unidad": "CAPSULA",
+        "stock_actual": 60,
+        "stock_minimo": 20,
+        "precio_unitario": Decimal("1.25"),
+    },
+]
+
 
 def create_tables() -> None:
     Base.metadata.create_all(bind=engine)
@@ -78,6 +115,23 @@ def seed_specialties(database: Session) -> None:
                 Specialty(
                     nombre=name,
                     descripcion=description,
+                    estado=1,
+                )
+            )
+
+    database.commit()
+
+
+def seed_medications(database: Session) -> None:
+    existing_codes = set(
+        database.scalars(select(Medication.codigo)).all()
+    )
+
+    for values in DEFAULT_MEDICATIONS:
+        if values["codigo"] not in existing_codes:
+            database.add(
+                Medication(
+                    **values,
                     estado=1,
                 )
             )
@@ -146,4 +200,5 @@ def initialize_database() -> None:
     with Session(engine) as database:
         seed_roles(database)
         seed_specialties(database)
+        seed_medications(database)
         seed_admin(database)
