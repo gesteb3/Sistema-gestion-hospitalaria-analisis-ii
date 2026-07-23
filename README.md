@@ -45,3 +45,28 @@ docker compose exec backend pytest
 ## Autor
 
 Gustavo Adolfo Esteban Batres
+
+
+## Frontend Angular v2
+
+La carpeta `frontend` incluye una interfaz ampliada con:
+
+- Gestión completa de pacientes.
+- Médicos y horarios.
+- Citas y estados.
+- Consultas clínicas.
+- Medicamentos e inventario.
+- Recetas y dispensación.
+- Laboratorio y resultados.
+- Facturación y pagos.
+- Usuarios con asignación de roles.
+- Auditoría y reportes.
+
+Iniciar todo:
+
+```powershell
+Copy-Item .env.example .env -Force
+docker compose up -d --build
+```
+
+Frontend: http://localhost:4200
